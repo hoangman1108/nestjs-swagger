@@ -1,6 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
-import { TaskStatus } from '../tasks.model';
+import { ApiProperty } from '@nestjs/swagger';
+import { TaskStatus } from '../task-status.enum';
 
 export class CreateTaskDto{
   @ApiProperty()
@@ -15,5 +15,5 @@ export class CreateTaskDto{
 export class TaskStatusDto{
   @IsNotEmpty()
   @ApiProperty({enum: Object.keys(TaskStatus)})
-  status:TaskStatus;
+  status: string;
 }

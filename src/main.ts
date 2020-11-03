@@ -10,6 +10,11 @@ async function bootstrap() {
     .setTitle('Rest API CRUD')
     .setDescription('Simple api with beginner')
     .setVersion('1.0')
+    .setBasePath('api')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'authorization',
+    )
     // .addTag('tasks')
     .build();
   const document = SwaggerModule.createDocument(app, options);
