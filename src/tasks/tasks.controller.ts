@@ -17,34 +17,42 @@ export class TasksController {
   constructor(private tasksService: TasksService) { }
 
   @Get()
-  async getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto):Promise<Task[]> {
-    return this.tasksService.getTasks(filterDto);
+  async getTasks(
+    @Query(ValidationPipe) filterDto: GetTasksFilterDto,
+    @GetUser() user: User,
+  ):Promise<Task[]> {
+    return this.tasksService.getTasks(filterDto, user);
   }
 
   @Post()
   createTask(
-    @Body() createTaskDto: CreateTaskDto
+    @Body() createTaskDto: CreateTaskDto, @GetUser() user:User,
   ): Promise<Task> {
-    return this.tasksService.createTask(createTaskDto);
+    return this.tasksService.createTask(createTaskDto, user);
   }
 
   @Get('/:id')
-  getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
-    return this.tasksService.getTaskById(id);
-  }
-
-
-
-  @Delete('/:id')
-  deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.tasksService.deleteTask(id);
+  getTaskById(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.getTaskById(id, user);
   }
 
   @Patch('/:id/status')
   updateTaskStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+    @GetUser() user: User,
   ): Promise<Task> {
-    return this.tasksService.updateTaskStatus(id, status);
+    return this.tasksService.updateTaskStatus(id, status, user);
+  }
+
+  @Delete('/:id')
+  deleteTask(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.tasksService.deleteTask(id, user);
   }
 }

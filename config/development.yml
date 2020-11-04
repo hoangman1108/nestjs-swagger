@@ -1,0 +1,7 @@
+db:
+  host: 'ec2-54-196-89-124.compute-1.amazonaws.com'
+  username: 'hmnbuhicrdudfo'
+  password: 'dea2cab953a92d623469b8f40cffe34d2a6cc03d30afc56d2c75cee303970cda'
+  synchronize: true
+jwt:
+  secret: 'thisIsSecretKey'
