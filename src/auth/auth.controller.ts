@@ -1,6 +1,5 @@
-import { Body, Controller, Post, Req, UseGuards, ValidationPipe } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post , ValidationPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 
@@ -22,11 +21,10 @@ export class AuthController {
     return this.authService.signin(authCredentialsDto);
   }
 
-  @Post('/test')
-  @ApiSecurity('authorization')
-  // @ApiBearerAuth()
-  @UseGuards(AuthGuard())
-  test(@Req() req){
-    console.log(req.headers);
-  }
+  // @Post('/test')
+  // @ApiSecurity('authorization')
+  // @UseGuards(AuthGuard())
+  // test(@GetUser() user: User) {
+  //   console.log(user);
+  // }
 }

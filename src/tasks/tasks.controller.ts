@@ -1,18 +1,23 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-task-filter.dbo';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 import { TaskStatus } from './task-status.enum';
 import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
-@Controller('tasks')
 @ApiTags('Task')
+@Controller('tasks')
+@ApiSecurity('authorization')
+@UseGuards(AuthGuard())
 export class TasksController {
   constructor(private tasksService: TasksService) { }
 
   @Get()
-  async getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto) {
+  async getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto):Promise<Task[]> {
     return this.tasksService.getTasks(filterDto);
   }
 
@@ -40,6 +45,6 @@ export class TasksController {
     @Param('id', ParseIntPipe) id: number,
     @Body('status', TaskStatusValidationPipe) status: TaskStatus,
   ): Promise<Task> {
-    return this.tasksService.updateTaskStatus(id,status);
+    return this.tasksService.updateTaskStatus(id, status);
   }
 }
