@@ -1,6 +1,6 @@
-import { User } from "src/auth/user.entity";
+import { User } from "../../../authentication/entities/auth.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { TaskStatus } from "./task-status.enum";
+import { TaskStatus } from "../enum/task-status.enum";
 
 @Entity()
 export class Task extends BaseEntity {

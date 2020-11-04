@@ -1,9 +1,9 @@
-import { User } from "src/auth/user.entity";
+import { User } from "../../authentication/entities/auth.entity";
 import { EntityRepository, Repository } from "typeorm";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { GetTasksFilterDto } from "./dto/get-task-filter.dbo";
-import { TaskStatus } from "./task-status.enum";
-import { Task } from "./task.entity";
+import { TaskStatus } from "./enum/task-status.enum";
+import { Task } from "./entities/task.entity";
 
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task>{

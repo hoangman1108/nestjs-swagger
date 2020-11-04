@@ -1,6 +1,6 @@
-## nest g module tasks
+## nest g module models/tasks
 -> create new module
-## nest g controller tasks --no-spec
+## nest g controller models/tasks --no-spec
 -> create controller
-## nest g service tasks --no-spec
+## nest g service models/tasks --no-spec
 -> create service
