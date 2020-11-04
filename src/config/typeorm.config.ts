@@ -3,13 +3,13 @@ import * as config from 'config';
 const dbConfig = config.get('db');
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
-  type: dbConfig.type,
-  host: process.env.RDS_HOSTNAME || dbConfig.host,
-  port: process.env.RDS_PORT || dbConfig.port,
-  username: process.env.RDS_USERNAME || dbConfig.username,
-  password: process.env.RDS_PASSWORD ||dbConfig.password,
-  database: process.env.RDS_DATABASE || dbConfig.database,
+  type: 'postgres',
+  host: 'ec2-54-196-89-124.compute-1.amazonaws.com',
+  port: 5432,
+  username: 'hmnbuhicrdudfo',
+  password: 'dea2cab953a92d623469b8f40cffe34d2a6cc03d30afc56d2c75cee303970cda',
+  database: 'd677d7teiohoma',
   entities: [__dirname+'/../**/*.entity.{ts,js}'],
-  synchronize: process.env.TYPEORM_SYNC || dbConfig.synchronize,
+  synchronize: true,
   ssl: { rejectUnauthorized: false }
 };
