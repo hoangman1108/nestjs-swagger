@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateProfileDto } from './dto/create-profile.dto';
+import { User } from 'src/authentication/entities/auth.entity';
 import { Profile } from './entities/profile.entity';
 import { ProfileRepository } from './profile.repository';
 
@@ -9,14 +9,23 @@ export class ProfilesService {
 
   constructor(
     @InjectRepository(ProfileRepository)
-    private profileRepository
+    private profileRepository: ProfileRepository
   ){}
-
-  async createProfile(createProfileDto: CreateProfileDto): Promise<Profile>{
-    return this.profileRepository.createProfile(createProfileDto);
-  }
 
   async getProfiles():Promise<Profile[]>{
     return this.profileRepository.getProfiles();
+  }
+
+  async getProfilesById(user: User):Promise<any>{
+    const profile = await this.profileRepository.findOne({
+      where: {
+        id: user.profileId,
+      }
+    });
+
+    return {
+      ...profile,
+      username: user.username,
+    }
   }
 }

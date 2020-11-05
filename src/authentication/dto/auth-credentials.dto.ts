@@ -32,3 +32,15 @@ export class AuthCredentialsDto{
   @MaxLength(100)
   locale: string;
 }
+
+export class LoginCredentialsDto{
+  @ApiProperty()
+  @IsString()
+  @Matches(/^([a-z0-9]{5,})$/)
+  username:string;
+
+  @ApiProperty()
+  @IsString()
+  @Matches(/^([a-z0-9]{5,})$/)
+  password:string;
+}

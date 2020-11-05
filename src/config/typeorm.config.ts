@@ -9,5 +9,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: process.env.ORM_DATABASE ||'taskmanament',
   entities: [__dirname+'/../**/*.entity.{ts,js}'],
   synchronize: true,
-  ssl: { rejectUnauthorized: false }
+  // ssl: { rejectUnauthorized: false }
 };

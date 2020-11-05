@@ -1,11 +1,15 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { CreateProfileDto } from './dto/create-profile.dto';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/authentication/entities/auth.entity';
+import { GetUser } from 'src/common/decorators/get-user.decorator';
 import { Profile } from './entities/profile.entity';
 import { ProfilesService } from './profiles.service';
 
 @ApiTags('Profile')
 @Controller('profiles')
+@ApiSecurity('authorization')
+@UseGuards(AuthGuard())
 export class ProfilesController {
   constructor(private profileService: ProfilesService){ }
 
@@ -13,11 +17,11 @@ export class ProfilesController {
   async getProfiles(): Promise<Profile[]>{
     return this.profileService.getProfiles();
   }
-  
-  @Post()
-  async createProfile(
-    @Body() createProfileDto: CreateProfileDto
-  ): Promise<Profile>{
-    return this.profileService.createProfile(createProfileDto);
+
+  @Get('/info')
+  async getInfoProfile(
+    @GetUser() user: User
+  ):Promise<any>{
+    return await this.profileService.getProfilesById(user);
   }
 }

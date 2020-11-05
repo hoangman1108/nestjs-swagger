@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { AuthCredentialsDto, LoginCredentialsDto } from './dto/auth-credentials.dto';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -17,8 +17,8 @@ export class AuthController {
   }
 
   @Post('/signin')
-  signin(@Body() authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-    return this.authService.signin(authCredentialsDto);
+  signin(@Body() loginCredentialsDto: LoginCredentialsDto): Promise<{ accessToken: string }> {
+    return this.authService.signin(loginCredentialsDto);
   }
 
   // @Post('/test')
