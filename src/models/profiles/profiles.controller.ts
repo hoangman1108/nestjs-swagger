@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/authentication/entities/auth.entity';
 import { GetUser } from 'src/common/decorators/get-user.decorator';
+import { GetProfile } from 'src/common/decorators/get-profile.decorator';
 import { Profile } from './entities/profile.entity';
 import { ProfilesService } from './profiles.service';
 
@@ -20,8 +21,12 @@ export class ProfilesController {
 
   @Get('/info')
   async getInfoProfile(
-    @GetUser() user: User
+    @GetUser() user: User,
+    @GetProfile() profile: Profile,
   ):Promise<any>{
-    return await this.profileService.getProfilesById(user);
+    return {
+      ...profile,
+      username: user.username,
+    }
   }
 }

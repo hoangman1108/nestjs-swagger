@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from '../common/middleware/JWT.stratery';
 import { UserRepository } from './user.repository';
 import { ProfilesModule } from 'src/models/profiles/profiles.module';
+import { ProfileRepository } from 'src/models/profiles/profile.repository';
 
 @Module({
   imports:[
@@ -20,10 +21,10 @@ import { ProfilesModule } from 'src/models/profiles/profiles.module';
       }
     }),
     TypeOrmModule.forFeature([
-      UserRepository
+      UserRepository,
+      ProfileRepository,
     ]),
     ProfilesModule,
-  
   ],
   controllers: [AuthController],
   providers: [
