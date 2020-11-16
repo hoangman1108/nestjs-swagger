@@ -1,11 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { BloomBox } from './bloomBox.schema';
 import { BloomBoxService } from './bloomBox.service';
 import { CreateBloomBoxDto } from './dto/create-bloom-box.dto';
 
 @ApiTags('BloomsBoxes')
 @Controller('bloomBoxes')
+@ApiSecurity('authorization')
+@UseGuards(AuthGuard())
 export class BloomBoxController {
   constructor(private bloomBoxesService: BloomBoxService) { }
 

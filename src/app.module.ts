@@ -14,12 +14,7 @@ import { BloomBoxModule } from './models/bloom-boxes/bloomBox.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://hoangman:123@cluster0.ascy6.mongodb.net/homie?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'),
-    
-    // MongooseModule.forRoot('mongodb://localhost/nest',
-    // {
-    //   connectionName: 'bloomBoxes',
-    // }),
+    MongooseModule.forRoot('mongodb+srv://hoangman:123@cluster0.ascy6.mongodb.net/Nest?authSource=admin&replicaSet=Cluster0-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'),
     ConfigModule.forRoot({
       load: [dataConfig]
     }),
