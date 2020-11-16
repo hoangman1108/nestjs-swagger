@@ -1,9 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { BloomBox, BloomBoxSchema } from '../bloom-boxes/bloomBox.schema';
+import { BloomBox } from '../bloom-boxes/bloomBox.schema';
 
 export type BloomDocument = Bloom & Document;
-
 @Schema()
 export class Bloom {
   @Prop()
@@ -15,8 +14,11 @@ export class Bloom {
   @Prop()
   price: number;
 
-  @Prop()
-  box: { type: Types.ObjectId, ref: BloomBox }
+  @Prop({
+    type: Types.ObjectId,
+    ref: BloomBox.name
+  })
+  box: Types.ObjectId;
 }
 
 export const BloomSchema = SchemaFactory.createForClass(Bloom);

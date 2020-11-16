@@ -23,20 +23,21 @@ async function bootstrap() {
   );
 
   const options = new DocumentBuilder()
-    .setTitle('Rest API CRUD')
-    .setDescription('Simple api with beginner')
-    .setVersion('1.0')
+    .setTitle('Rest API CRUD postgres vs mongodb')
+    // .setDescription('Simple api with beginner')
+    .setVersion('1.1')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
       'authorization',
     )
+    .setContact('mr.Mẫn', 'https://graphql-api-v1.herokuapp.com/', 'hoangman772@gmail.com')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   // app.useGlobalPipes(new ValidationPipe());
   SwaggerModule.setup('api/docs', app, document);
 
-  const port = process.env.PORT || 3000;
-  await app.listen(process.env.PORT || 3000);
+  const port = process.env.PORT || 4000;
+  await app.listen(process.env.PORT || 4000);
   logger.log(`Application listening on port ${port}`);
 }
 bootstrap();

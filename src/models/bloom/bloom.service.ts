@@ -14,14 +14,14 @@ export class BloomService {
     private connection: Connection) { }
 
   async create(createBloomDto: CreateBloomDto): Promise<Bloom> {
-    const createdCat = new this.bloomCollection({
-      ...createBloomDto,
-      box: (createBloomDto.box)
-    });
+    const createdCat = new this.bloomCollection(createBloomDto);
     return createdCat.save();
   }
 
   async list(): Promise<Bloom[]> {
+    console.log('456')
+    console.log(await this.bloomCollection.find().populate('box'));
+    console.log('123');
     return this.bloomCollection.find().exec();
   }
 
