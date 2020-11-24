@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,6 +11,7 @@ import { BoardsModule } from './models/boards/boards.module';
 import { BloomModule } from './models/bloom/bloom.module';
 import dataConfig from './config/database';
 import { BloomBoxModule } from './models/bloom-boxes/bloomBox.module';
+import LoggerMiddleware from './common/middleware/logger.middleware';
 
 @Module({
   imports: [
@@ -27,4 +28,13 @@ import { BloomBoxModule } from './models/bloom-boxes/bloomBox.module';
     BloomBoxModule,
   ],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware) //multiple
+      .forRoutes(
+        { path: 'bloomBoxes', method: RequestMethod.GET },
+        { path: 'boards', method: RequestMethod.ALL }
+      )
+  }
+}
