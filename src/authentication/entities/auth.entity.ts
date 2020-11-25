@@ -1,8 +1,8 @@
 import { BaseEntity, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 import * as bcrypt from 'bcrypt';
 import { Task } from "../../models/tasks/entities/task.entity";
-import { Profile } from "src/models/profiles/entities/profile.entity";
-import { Board } from "src/models/boards/entities/board.entity";
+import { Profile } from "../../models/profiles/entities/profile.entity";
+import { Board } from "../../models/boards/entities/board.entity";
 
 @Entity()
 @Unique(['username'])

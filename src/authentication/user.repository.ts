@@ -4,7 +4,7 @@ import * as bcrypt from "bcrypt";
 
 import { AuthCredentialsDto, LoginCredentialsDto } from "./dto/auth-credentials.dto";
 import { User } from "./entities/auth.entity";
-import { Profile } from "src/models/profiles/entities/profile.entity";
+import { Profile } from "../models/profiles/entities/profile.entity";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {

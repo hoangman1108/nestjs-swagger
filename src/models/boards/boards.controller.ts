@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/authentication/entities/auth.entity';
-import { GetUser } from 'src/common/decorators/get-user.decorator';
+import { User } from '../../authentication/entities/auth.entity';
+import { GetUser } from '../../common/decorators/get-user.decorator';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { Board } from './entities/board.entity';

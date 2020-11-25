@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from 'src/authentication/auth.module';
+import { AuthModule } from '../../authentication/auth.module';
 import { BloomController } from './bloom.controller';
 import { Bloom, BloomSchema } from './bloom.schema';
 import { BloomService } from './bloom.service';

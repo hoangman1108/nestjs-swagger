@@ -6,8 +6,8 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from '../common/middleware/JWT.stratery';
 import { UserRepository } from './user.repository';
-import { ProfilesModule } from 'src/models/profiles/profiles.module';
-import { ProfileRepository } from 'src/models/profiles/profile.repository';
+import { ProfilesModule } from '../models/profiles/profiles.module';
+import { ProfileRepository } from '../models/profiles/profile.repository';
 
 @Module({
   imports:[

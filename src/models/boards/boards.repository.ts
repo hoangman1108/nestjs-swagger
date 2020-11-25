@@ -1,4 +1,4 @@
-import { User } from "src/authentication/entities/auth.entity";
+import { User } from "../../authentication/entities/auth.entity";
 import { EntityRepository, Repository } from "typeorm";
 import { CreateBoardDto } from "./dto/create-board.dto";
 import { Board } from "./entities/board.entity";
