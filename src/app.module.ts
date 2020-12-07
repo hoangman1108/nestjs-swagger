@@ -12,6 +12,7 @@ import { BloomModule } from './models/bloom/bloom.module';
 import dataConfig from './config/database';
 import { BloomBoxModule } from './models/bloom-boxes/bloomBox.module';
 import LoggerMiddleware from './common/middleware/logger.middleware';
+import { ConfigurationService } from './common/configuration/configuration.service';
 
 @Module({
   imports: [
@@ -29,6 +30,26 @@ import LoggerMiddleware from './common/middleware/logger.middleware';
   ],
 })
 export class AppModule implements NestModule {
+
+  static _configurationService: ConfigurationService = new ConfigurationService();
+
+  static port: number | string = AppModule.normalizePort(AppModule._configurationService.port);
+  static isDev: boolean = AppModule._configurationService.isDevelopment;
+
+  private static normalizePort(val: number | string): number | string {
+    const port: number = typeof val === 'string' ? parseInt(val, 10) : val;
+
+    if (Number.isNaN(port)) {
+      return val;
+    }
+
+    if (port >= 0) {
+      return port;
+    }
+
+    throw new Error(`Port "${val}" is invalid.`);
+  }
+
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware) //multiple

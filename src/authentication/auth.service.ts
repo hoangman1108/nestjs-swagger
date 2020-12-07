@@ -26,7 +26,7 @@ export class AuthService {
 
     const payload: JwtPayload = { username };
     const data: User = await this.userRepository.findOne({ username });
-    const accessToken = await this.jwtService.sign(payload);
+    const accessToken = this.jwtService.sign(payload);
     return { data, accessToken }
   }
 }

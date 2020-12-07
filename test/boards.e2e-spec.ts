@@ -14,7 +14,6 @@ describe('Boards', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      // imports: [BoardsModule],
       controllers: [BoardsController],
       providers: [BoardsService],
     })

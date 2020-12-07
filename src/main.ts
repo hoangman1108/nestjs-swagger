@@ -1,4 +1,3 @@
-// import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -7,8 +6,11 @@ import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 
 async function bootstrap() {
-  const logger = new Logger('bootstrap');
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+  const logger = new Logger('Silas Man', true);
+  const globalPrefix = '/api';
+
+  app.enableCors();
   app.use(helmet());
   app.use(
     rateLimit({
@@ -16,28 +18,34 @@ async function bootstrap() {
       max: 100, // limit each IP to 100 requests per windowMs
     }),
   );
-  app.useGlobalPipes(
-    new ValidationPipe({
-      // disableErrorMessages: true,
-    }),
-  );
+  app.setGlobalPrefix(globalPrefix);
 
-  const options = new DocumentBuilder()
-    .setTitle('Rest API CRUD postgres vs mongodb')
-    // .setDescription('Simple api with beginner')
-    .setVersion('1.1')
-    .addBearerAuth(
-      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-      'authorization',
-    )
-    .setContact('mr.Mẫn', 'https://graphql-api-v1.herokuapp.com/', 'hoangman772@gmail.com')
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  // app.useGlobalPipes(new ValidationPipe());
-  SwaggerModule.setup('api/docs', app, document);
+  if (AppModule.isDev) {
+    const options = new DocumentBuilder()
+      .setTitle('Rest API CRUD postgres vs mongodb')
+      .setVersion('1.1')
+      .setBasePath('api')
+      .addBearerAuth(
+        { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+        'authorization',
+      )
+      .setContact('mr.Mẫn', 'https://graphql-api-v1.herokuapp.com/', 'hoangman772@gmail.com')
+      .build();
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
+  }
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  await app.listen(AppModule.port);
 
-  const port = process.env.PORT || 4000;
-  await app.listen(process.env.PORT || 4000);
-  logger.log(`Application listening on port ${port}`);
+  let baseUrl = app.getHttpServer().address().address;
+  if (baseUrl === '0.0.0.0' || baseUrl === '::') {
+    baseUrl = 'localhost';
+  }
+  logger.log(`Listening to http://${baseUrl}:${AppModule.port}${globalPrefix}`);
+  if (AppModule.isDev) {
+    logger.log(
+      `Swagger UI: http://${baseUrl}:${AppModule.port}${globalPrefix}/docs`,
+    );
+  }
 }
 bootstrap();
