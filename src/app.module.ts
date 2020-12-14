@@ -13,6 +13,7 @@ import dataConfig from './config/database';
 import { BloomBoxModule } from './models/bloom-boxes/bloomBox.module';
 import LoggerMiddleware from './common/middleware/logger.middleware';
 import { ConfigurationService } from './common/configuration/configuration.service';
+import { BloomService } from './models/bloom/bloom.service';
 
 @Module({
   imports: [
@@ -28,8 +29,9 @@ import { ConfigurationService } from './common/configuration/configuration.servi
     BloomModule,
     BloomBoxModule,
   ],
+
 })
-export class AppModule implements NestModule {
+export class AppModule {
 
   static _configurationService: ConfigurationService = new ConfigurationService();
 
@@ -50,12 +52,12 @@ export class AppModule implements NestModule {
     throw new Error(`Port "${val}" is invalid.`);
   }
 
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware) //multiple
-      .forRoutes(
-        { path: 'bloomBoxes', method: RequestMethod.GET },
-        { path: 'boards', method: RequestMethod.ALL }
-      )
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(LoggerMiddleware) //multiple
+  //     .forRoutes(
+  //       { path: 'bloomBoxes', method: RequestMethod.GET },
+  //       { path: 'boards', method: RequestMethod.ALL }
+  //     )
+  // }
 }

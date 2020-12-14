@@ -20,8 +20,6 @@ export class BloomService {
 
   async list(): Promise<Bloom[]> {
     console.log('456')
-    console.log(await this.bloomCollection.find().populate('box'));
-    console.log('123');
     return this.bloomCollection.find().exec();
   }
 
